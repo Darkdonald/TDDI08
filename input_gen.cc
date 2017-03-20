@@ -32,7 +32,6 @@ void Generator::generate_thread()
     sensor_SN->write(sen_SN);
     sensor_WE->write(sen_WE);
     sensor_EW->write(sen_EW);
-    cout << "\n" << "counter: " << counter << "\n";
     counter++;
   }
 }

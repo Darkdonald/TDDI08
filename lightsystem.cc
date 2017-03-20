@@ -22,8 +22,6 @@ void Lightsystem::control_lights_method()
   sensor[2] = sensor_WE->read();
   sensor[3] = sensor_EW->read();
 
-  cout << "last car " << car[0] << car[1] << car[2] << car[3] << "\n";
-  cout << "light" << light[0] << light[1] << light[2] << light[3] << "\n";
   // see if already green
   for (int i = 0; i < 4; i++) {
     if (light[i] == 1) {
@@ -41,16 +39,12 @@ void Lightsystem::control_lights_method()
     light[i] = 0;
   }
 
-  cout << "sensor " << sensor[0] << sensor[1] << sensor[2] << sensor[3] << "\n";
-
   // check
   for (int i = 0; i < 4; i++) {
     if (sensor[i] == 1) {
       car[i]++;
     }
   }
-
-  cout << "new car " << car[0] << car[1] << car[2] << car[3] << "\n";
 
   // no car
   if (sumArray(car) == 0) {
@@ -63,6 +57,13 @@ void Lightsystem::control_lights_method()
 
   NSSN = car[0] + car[1] - count[0] - count[1];
   WEEW = car[2] + car[3] - count[2] - count[3];
+
+  if (NSSN < 0) {
+    NSSN = 0;
+  }
+  if (WEEW < 0) {
+    WEEW = 0;
+  }
 
   if (NSSN >= WEEW) {
     light[2] = 0;
@@ -92,8 +93,6 @@ void Lightsystem::control_lights_method()
 }
 
 void Lightsystem::setLight() {
-  cout << "set light" << light[0] << light[1] << light[2] << light[3] << "\n";
-
   light_NS->write(light[0]);
   light_SN->write(light[1]);
   light_WE->write(light[2]);
