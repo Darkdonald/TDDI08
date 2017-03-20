@@ -25,6 +25,7 @@ SC_MODULE(Monitor) {
   Monitor(sc_module_name name, char *outfile);
   ~Monitor();
 
+  void end_of_simulation();
   void monitor_method();
   void check_constraints_method();
   void event_trigger_thread();
