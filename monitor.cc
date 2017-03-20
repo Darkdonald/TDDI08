@@ -11,19 +11,22 @@ Monitor::Monitor(sc_module_name name, char *outfile)
   SC_THREAD(event_trigger_thread);
 
   SC_METHOD(monitor_method);
-  dont_initialize();
   sensitive << time_event;
-}
-
-Monitor::~Monitor()
-{
-  delete out;
 }
 
 void Monitor::monitor_method()
 {
-  *out << "counter: " << counter << "\n" << sensor_NS << sensor_SN << sensor_WE << sensor_EW << "\n" << light_NS << light_SN << light_WE << light_EW << "\n  \n";
+  *out << light_NS << " " << light_SN << " " << light_WE << " " << light_EW << "\n";
   counter++;
+}
+
+Monitor::~Monitor() {
+
+}
+
+void Monitor::end_of_simulation()
+{
+  delete out;
 }
 
 void Monitor::event_trigger_thread()
